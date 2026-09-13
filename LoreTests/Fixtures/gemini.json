@@ -1,0 +1,13 @@
+{
+  "sessionId": "shared-session-id",
+  "projectHash": "unresolved-project",
+  "startTime": "2026-09-10T10:00:00Z",
+  "lastUpdated": "2026-09-10T10:10:00Z",
+  "summary": "SANITIZED_PRIVATE_MARKER",
+  "messages": [
+    {"id":"user-1","type":"user","timestamp":"2026-09-10T10:00:00Z","content":"SANITIZED_PRIVATE_MARKER"},
+    {"id":"response-1","type":"gemini","timestamp":"2026-09-10T10:05:00Z","model":"gemini-test","tokens":{"input":100,"output":20,"cached":60,"thoughts":4},"content":"SANITIZED_PRIVATE_MARKER"},
+    null,
+    {"id":"response-1","type":"gemini","timestamp":"2026-09-10T10:10:00Z","model":"gemini-test","tokens":{"input":100,"output":25,"cached":60,"thoughts":4}}
+  ]
+}

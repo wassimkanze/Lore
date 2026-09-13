@@ -1,0 +1,4 @@
+// Portable defaults. Local identity overrides never enter the repository.
+LORE_CODE_SIGN_IDENTITY = -
+LORE_DEVELOPMENT_TEAM =
+#include? "Signing.local.xcconfig"

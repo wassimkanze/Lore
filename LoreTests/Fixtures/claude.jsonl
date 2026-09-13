@@ -1,0 +1,6 @@
+{"type":"user","sessionId":"shared-session-id","cwd":"/example/project","timestamp":"2026-09-10T10:00:00Z","message":{"content":"SANITIZED_PRIVATE_MARKER"}}
+{"type":"assistant","sessionId":"shared-session-id","timestamp":"2026-09-10T10:01:00Z","uuid":"event-1","message":{"id":"response-1","model":"claude-test","usage":{"input_tokens":2,"cache_creation_input_tokens":10,"cache_read_input_tokens":80,"output_tokens":5},"content":"SANITIZED_PRIVATE_MARKER"}}
+{"type":"assistant","sessionId":"shared-session-id","timestamp":"2026-09-10T10:02:00Z","uuid":"event-2","message":{"id":"response-1","model":"claude-test","usage":{"input_tokens":2,"cache_creation_input_tokens":10,"cache_read_input_tokens":80,"output_tokens":7}}}
+malformed unfinished line
+{"type":"assistant","sessionId":"shared-session-id","timestamp":"2026-09-10T10:10:00Z","message":{"id":"response-2","model":"claude-test","usage":{"input_tokens":3,"cache_creation_input_tokens":0,"cache_read_input_tokens":20,"output_tokens":9}}}
+{"type":"last-prompt","sessionId":"shared-session-id","lastPrompt":"SANITIZED_PRIVATE_MARKER"}
