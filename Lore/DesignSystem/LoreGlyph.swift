@@ -2,7 +2,7 @@ import SwiftUI
 
 /// A small family of rounded line icons, drawn on the same 24-point grid.
 struct LoreGlyph: View {
-    enum Kind { case today, timeline, projects, pulse, appearance, sources, privacy, diagnostics }
+    enum Kind { case today, timeline, projects, pulse, appearance, sources, privacy, diagnostics, support }
     let kind: Kind
     var body: some View {
         Canvas { context, size in
@@ -34,6 +34,13 @@ struct LoreGlyph: View {
             case .privacy:
                 line([(12,3),(20,6),(19,15),(16,19),(12,22),(8,19),(5,15),(4,6),(12,3)])
                 line([(8,12),(11,15),(16,9)])
+            case .support:
+                func point(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: x * scale, y: y * scale) }
+                p.move(to: point(12, 21))
+                p.addCurve(to: point(3, 7), control1: point(8, 17), control2: point(1, 12))
+                p.addCurve(to: point(12, 7), control1: point(5, 2), control2: point(10, 3))
+                p.addCurve(to: point(21, 7), control1: point(14, 3), control2: point(19, 2))
+                p.addCurve(to: point(12, 21), control1: point(23, 12), control2: point(16, 17))
             case .diagnostics:
                 line([(4,20),(4,12)]); line([(12,20),(12,4)]); line([(20,20),(20,8)])
             }

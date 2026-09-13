@@ -3,9 +3,9 @@ import SwiftUI
 
 enum Destination: String, CaseIterable, Identifiable {
     case today = "Today", timeline = "Timeline", projects = "Projects", pulse = "Pulse"
-    case appearance = "Appearance", sources = "Sources & Access", privacy = "Privacy", diagnostics = "Diagnostics"
+    case appearance = "Appearance", sources = "Sources & Access", privacy = "Privacy", diagnostics = "Diagnostics", support = "Support Lore"
     var id: String { rawValue }
-    var glyph: LoreGlyph.Kind { switch self { case .today: .today; case .timeline: .timeline; case .projects: .projects; case .pulse: .pulse; case .appearance: .appearance; case .sources: .sources; case .privacy: .privacy; case .diagnostics: .diagnostics } }
+    var glyph: LoreGlyph.Kind { switch self { case .today: .today; case .timeline: .timeline; case .projects: .projects; case .pulse: .pulse; case .appearance: .appearance; case .sources: .sources; case .privacy: .privacy; case .diagnostics: .diagnostics; case .support: .support } }
 }
 struct ContentView: View {
     @Environment(AppState.self) private var state
@@ -48,6 +48,9 @@ struct ContentView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 VStack(alignment: .leading, spacing: 8) {
+                    Button { state.destination = .support } label: {
+                        Label("Support Lore", systemImage: "heart")
+                    }.buttonStyle(.plain).font(.caption).foregroundStyle(LorePalette.accent).padding(.bottom, 6)
                     Label("On this Mac", systemImage: "lock.shield").font(.caption.weight(.medium))
                     Text(state.lastIndexedAt.map { "Updated " + $0.formatted(date: .omitted, time: .shortened) } ?? "Ready to read local activity")
                         .font(.caption2).foregroundStyle(.tertiary)
@@ -64,6 +67,7 @@ struct ContentView: View {
                 case .sources: SettingsView(page: .sources)
                 case .privacy: SettingsView(page: .privacy)
                 case .diagnostics: SettingsView(page: .diagnostics)
+                case .support: SupportView()
                 }
             }
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.16), value: state.destination)
@@ -94,6 +98,9 @@ struct ContentView: View {
         }
         .tint(LorePalette.accent).preferredColorScheme(state.preferences.theme.scheme).frame(minWidth: 960, minHeight: 640)
         .onAppear {
+            state.openSupportPage = { [weak state] in
+                state?.destination = .support; openWindow(id: "main"); NSApplication.shared.activate(ignoringOtherApps: true)
+            }
             state.notch.openPulsePage = { [weak state] in
                 state?.destination = .pulse; openWindow(id: "main"); NSApplication.shared.activate(ignoringOtherApps: true)
             }

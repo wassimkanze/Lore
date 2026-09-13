@@ -63,6 +63,7 @@ struct LoreMenuView: View {
                         Button("Diagnostics…") { open(.diagnostics) }
                     }
                     Divider()
+                    Button("Support Lore…") { open(.support) }
                     Button("Quit Lore") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q")
                 } label: { Image(systemName: "ellipsis") }.menuStyle(.borderlessButton).fixedSize().help("More Lore actions")
             }.controlSize(.small)

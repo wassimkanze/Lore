@@ -1,4 +1,6 @@
-# Lore — proposition open core
+# Archive — ancienne proposition open core
+
+**Orientation remplacée : Lore sera gratuit, avec soutien volontaire par dons. Aucun module propriétaire payant ni paywall n’est prévu à ce stade.** Ce document conserve une piste discutée précédemment, pas la feuille de route actuelle.
 
 Document de travail, pas une décision de licence ni une grille commerciale définitive. Aucune restriction, activation ou facturation n’est implémentée. Aucun dépôt n’est publié par cette étape.
 

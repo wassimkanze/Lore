@@ -27,6 +27,10 @@ import SwiftData
         }
         .defaultSize(width: 1200, height: 840)
         .commands {
+            CommandGroup(replacing: .help) {
+                Button("Support Lore…") { state?.openSupportPage?() }
+                    .disabled(state == nil)
+            }
             CommandMenu("Pulse") {
                 Button("Toggle Pulse") { Task { await state?.pulse.toggle() } }
                     .keyboardShortcut("p", modifiers: [.command, .option]).disabled(state?.pulse.busy != false)

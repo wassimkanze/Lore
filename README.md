@@ -1,6 +1,6 @@
 # Lore
 
-[Repository](https://github.com/wassimkanze/Lore) · Private while licensing and the future Pro boundary are being decided.
+[Repository](https://github.com/wassimkanze/Lore) · Private while the open-source license and first public release are being prepared.
 
 **Remember what you built.** A native, local-first macOS memory layer for AI-assisted development.
 
@@ -187,4 +187,13 @@ Mark a project as a favorite from its detail view. Favorites appear first in Pro
 
 When Lore has keyboard focus: **⌥⌘P** starts/stops Pulse, **⌥⌘.** stops it, and **⇧⌘P** opens the Pulse page. These are application shortcuts, not system-wide hotkeys.
 
-The open-core and future paid-feature split is still a proposal: see [OpenCore-Strategy.md](Docs/OpenCore-Strategy.md). No paid restriction or commercial license has been introduced.
+Lore’s chosen direction is a free app supported by optional donations. The earlier [open-core proposal](Docs/OpenCore-Strategy.md) is archived; there is no planned feature paywall. The open-source license is still to be selected before public release.
+
+
+## Support Lore
+
+Lore is free to use. If it helps you remember what you built, you can support its development and maintenance with an optional donation. Donations do not unlock features: everyone gets the same app.
+
+The public donation link is being prepared. Meanwhile, sharing Lore, reporting issues, and improving the code, documentation or design are all welcome ways to help.
+
+The app’s **Support Lore** page is available from the sidebar footer, the menu-bar More menu and Help. Payment, when available, happens on the external donation platform; Lore does not collect payment information or send development data to it.

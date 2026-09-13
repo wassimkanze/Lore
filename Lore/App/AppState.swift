@@ -17,6 +17,7 @@ import Observation
     var lastIndexedAt: Date?
     var errorMessage: String?
     var revision = 0
+    @ObservationIgnored var openSupportPage: (() -> Void)?
     @ObservationIgnored private let worker: IndexingWorker
     @ObservationIgnored private var activeIndex: Task<IndexingReport, any Error>?
     @ObservationIgnored private var started = false
