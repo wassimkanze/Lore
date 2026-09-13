@@ -5,7 +5,7 @@
 <h1 align="center">Lore</h1>
 <p align="center"><strong>Remember what you built.</strong></p>
 <p align="center">A native Mac app for your AI-assisted development history.</p>
-<p align="center">macOS 15+ · Apple Silicon · Local-first · Free</p>
+<p align="center">macOS 15+ · Apple Silicon · Local-first · Free &amp; open source</p>
 <p align="center"><a href="#what-you-can-do">Features</a> · <a href="#get-lore">Get Lore</a> · <a href="SUPPORT.md">Support Lore</a></p>
 
 Keep working with your usual coding tools. Lore brings your local AI sessions, Git commits and project activity into one place, so you can revisit what you worked on and pick up where you left off.
@@ -72,3 +72,7 @@ Sharing the project, reporting a bug or helping with code, documentation and des
 ## Contribute
 
 Ideas and contributions are welcome. Start with the [contributing guide](CONTRIBUTING.md), explore the [architecture](Docs/Architecture.md), or [open an issue](https://github.com/wassimkanze/Lore/issues).
+
+## License
+
+Lore is open source under the [MIT License](LICENSE).

@@ -2,7 +2,7 @@
 
 Thanks for helping make Lore a useful, native Mac app. Small fixes, clear bug reports, accessibility improvements, design feedback and documentation are welcome.
 
-The repository is being prepared for its first public source release. The maintainer still needs to select and apply the open-source license; this guide does not grant a license by itself.
+Lore is open source under the [MIT License](LICENSE). The license covers the project code, documentation and original artwork.
 
 ## Build Lore
 

@@ -1,6 +1,6 @@
 # Open-source readiness review
 
-Review date: 14 September 2026. Current direction: the complete app is free, with optional donations. The repository remains private; no license has been selected or applied during this review.
+Review date: 14 September 2026. Current direction: the complete app is free, with optional donations. After this review, the maintainer approved the MIT license and making the full repository public on 14 September 2026. The [license](../LICENSE) covers the code, documentation and original project artwork.
 
 ## Recommended public scope
 
@@ -34,15 +34,11 @@ The checked-in signing configuration contains portable variables and an optional
 - Built the native Release app from that checkout successfully. Its resulting signature was ad hoc, with no team identifier.
 - Added test-host isolation: an in-memory app database and no launch-time live indexing under XCTest. The app-host log confirmed this path.
 - Ran Xcode tests from the isolated checkout: 78 tests passed.
-- Confirmed the repository is private and no packaged GitHub release exists yet.
+- At the start of the review, the repository was private and no packaged GitHub release existed.
 - Confirmed that the donation profile is not public yet; the README links to a support page instead of advertising a live payment destination.
 
-## Remaining publication decisions
+## Publication decision
 
-1. Choose and apply an open-source license. For the free/donation-based direction, MIT is a straightforward candidate: it permits broad reuse and redistribution while retaining the required notices. [MIT text](https://opensource.org/license/mit)
-2. If sharing distributed modifications to covered files is important, consider MPL-2.0 instead. Its obligations operate at file level and differ from MIT. [Mozilla FAQ](https://www.mozilla.org/en-US/MPL/2.0/FAQ/)
-3. Confirm the intended treatment of the project name, logo and artwork, and any contributor rights.
-4. Explicitly approve making the repository public after the license is in place.
-5. Prepare a consumer-facing signed/notarized release separately. Successful source compilation does not claim that a downloadable production installer already exists.
+The maintainer selected MIT and authorized publishing the complete repository on 14 September 2026. The license has been added and linked from the README and contributing guide. No private Pro module or feature paywall is planned.
 
-This review does not publish the repository, add a license, modify GitHub Sponsors or configure signing credentials for another person.
+A consumer-facing signed/notarized installer remains a separate release step. The existing source-build and test results do not claim that a downloadable installer already exists. GitHub Sponsors approval and donation-link activation are also separate from the source publication.
