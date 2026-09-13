@@ -73,4 +73,3 @@ The pulse glance shows either the remaining timed minutes or “until tasks fini
 ### Local update validation
 
 The installer keeps the app bundle directory and, for an unchanged helper, its executable inode intact. Replacing an executing helper's file invalidates subsequent signature checks even when its replacement has identical bytes; UI-only updates now preserve that file via a temporary hard link. A changed privileged binary still needs a managed service restart and separate release validation. The XPC error bridge is nonisolated and resumes once even when an error, reply and timeout race; regression tests cover background-queue errors and late completion. No code-signing requirement was relaxed.
-
