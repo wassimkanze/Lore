@@ -1,12 +1,17 @@
 import SwiftUI
 import SwiftData
+import OSLog
 
 @main struct LoreApp: App {
     private let container: ModelContainer?
+    private let isTestHost: Bool
     @State private var state: AppState?
     init() {
+        let testing = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil || NSClassFromString("XCTestCase") != nil
+        isTestHost = testing
+        if testing { Logger(subsystem: "app.lore.mac", category: "App").info("Test host: temporary storage; live indexing disabled") }
         do {
-            let database = try LoreDatabase.make()
+            let database = try LoreDatabase.make(inMemory: testing)
             container = database
             _state = State(initialValue: AppState(container: database))
         } catch {
@@ -18,7 +23,7 @@ import SwiftData
         Window("Lore", id: "main") {
             if let container, let state {
                 ContentView().environment(state).modelContainer(container)
-                    .task { await state.start() }
+                    .task { if !isTestHost { await state.start() } }
             } else {
                 ContentUnavailableView("Lore couldn’t open its database", systemImage: "externaldrive.badge.exclamationmark",
                                        description: Text("Your saved data has not been removed. Check available disk space and access to Application Support/Lore, then reopen Lore."))
