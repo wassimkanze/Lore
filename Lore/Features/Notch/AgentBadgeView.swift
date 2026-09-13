@@ -32,4 +32,3 @@ import AppKit
         NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration())
     }
 }
-

@@ -1,5 +1,7 @@
 # Lore
 
+[Repository](https://github.com/wassimkanze/Lore) · Private while licensing and the future Pro boundary are being decided.
+
 **Remember what you built.** A native, local-first macOS memory layer for AI-assisted development.
 
 This is the 0.1 foundation: Codex and Claude Code discovery, a Gemini CLI reader, read-only Git enrichment, a persisted activity timeline, and a menu bar utility. Requires an Apple Silicon Mac (arm64), macOS 15+ and Xcode 16+ (validated here with Xcode 26.6 / Swift 6.3.3). No dependencies or network services.
