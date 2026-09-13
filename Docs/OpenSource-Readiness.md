@@ -41,4 +41,4 @@ The checked-in signing configuration contains portable variables and an optional
 
 The maintainer selected MIT and authorized publishing the complete repository on 14 September 2026. The license has been added and linked from the README and contributing guide. No private Pro module or feature paywall is planned.
 
-A consumer-facing signed/notarized installer remains a separate release step. The existing source-build and test results do not claim that a downloadable installer already exists. GitHub Sponsors approval and donation-link activation are also separate from the source publication.
+The subsequent 0.1.0 distribution was signed with Developer ID and accepted by Apple notarization. Its packaged app passed Gatekeeper after extraction; see [Distribution.md](Distribution.md) for the release process. GitHub Sponsors approval and donation-link activation are also separate from the source publication.

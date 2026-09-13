@@ -68,3 +68,8 @@ Do not attach real Codex, Claude or Gemini logs, prompts, responses, credentials
 - No telemetry, conversation uploads or feature paywalls.
 - No productivity scoring or invented activity data.
 - Keep the code straightforward and the UI calm.
+
+
+## Public release builds
+
+Developer ID signing, Xcode notarization, packaging and final Gatekeeper checks are documented in [Distribution.md](Docs/Distribution.md). These credentials are only needed by maintainers producing official downloads, not by people installing a release.

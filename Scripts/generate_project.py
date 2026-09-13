@@ -70,12 +70,12 @@ def configs(scope, extras):
 project_configs=configs('project',{})
 app_configs=configs('app',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac','PRODUCT_NAME':'$(TARGET_NAME)','GENERATE_INFOPLIST_FILE':'YES',
                           'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon','INFOPLIST_KEY_CFBundleDisplayName':'Lore','INFOPLIST_KEY_LSApplicationCategoryType':'public.app-category.developer-tools',
-                          'MARKETING_VERSION':'0.1.0','CURRENT_PROJECT_VERSION':'1','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
+                          'MARKETING_VERSION':'0.1.0','CURRENT_PROJECT_VERSION':'1','SKIP_INSTALL':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
                           'ENABLE_APP_SANDBOX':'NO','ENABLE_HARDENED_RUNTIME':'YES','LD_RUNPATH_SEARCH_PATHS':'$(inherited) @executable_path/../Frameworks'})
 test_configs=configs('test',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac.tests','PRODUCT_NAME':'$(TARGET_NAME)',
                             'GENERATE_INFOPLIST_FILE':'YES','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
                             'TEST_HOST':'$(BUILT_PRODUCTS_DIR)/Lore.app/Contents/MacOS/Lore','BUNDLE_LOADER':'$(TEST_HOST)'})
-helper_configs=configs('helper',{'PRODUCT_NAME':'LorePowerHelper','PRODUCT_BUNDLE_IDENTIFIER':'app.lore.power-helper','INFOPLIST_FILE':'Helper/Info.plist','CREATE_INFOPLIST_SECTION_IN_BINARY':'YES','ENABLE_HARDENED_RUNTIME':'YES','SWIFT_ACTIVE_COMPILATION_CONDITIONS':'','OTHER_SWIFT_FLAGS':'-parse-as-library'})
+helper_configs=configs('helper',{'PRODUCT_NAME':'LorePowerHelper','SKIP_INSTALL':'YES','PRODUCT_BUNDLE_IDENTIFIER':'app.lore.power-helper','INFOPLIST_FILE':'Helper/Info.plist','CREATE_INFOPLIST_SECTION_IN_BINARY':'YES','ENABLE_HARDENED_RUNTIME':'YES','SWIFT_ACTIVE_COMPILATION_CONDITIONS':'','OTHER_SWIFT_FLAGS':'-parse-as-library'})
 helper_target=put('helperTarget','{isa = PBXNativeTarget; buildConfigurationList = '+helper_configs+'; buildPhases = '+seq([helper_phase])+'; buildRules = (); dependencies = (); name = LorePowerHelper; productName = LorePowerHelper; productReference = '+helper_product+'; productType = "com.apple.product-type.tool";}')
 helper_proxy=put('helperProxy','{isa = PBXContainerItemProxy; containerPortal = '+ident('project')+'; proxyType = 1; remoteGlobalIDString = '+helper_target+'; remoteInfo = LorePowerHelper;}')
 helper_dep=put('helperDependency','{isa = PBXTargetDependency; target = '+helper_target+'; targetProxy = '+helper_proxy+';}')

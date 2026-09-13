@@ -6,7 +6,7 @@
 <p align="center"><strong>Remember what you built.</strong></p>
 <p align="center">A native Mac app for your AI-assisted development history.</p>
 <p align="center">macOS 15+ · Apple Silicon · Local-first · Free &amp; open source</p>
-<p align="center"><a href="#what-you-can-do">Features</a> · <a href="#get-lore">Get Lore</a> · <a href="SUPPORT.md">Support Lore</a></p>
+<p align="center"><a href="#what-you-can-do">Features</a> · <a href="https://github.com/wassimkanze/Lore/releases/latest">Download</a> · <a href="SUPPORT.md">Support Lore</a></p>
 
 Keep working with your usual coding tools. Lore brings your local AI sessions, Git commits and project activity into one place, so you can revisit what you worked on and pick up where you left off.
 
@@ -59,7 +59,13 @@ Live status depends on what each tool records. See the [integration notes](Docs/
 
 Lore runs on **Apple Silicon Macs with macOS 15 or newer**.
 
-The first packaged release is being prepared. You can already [build Lore from source](CONTRIBUTING.md#build-lore). The app is fully native, built with Swift, SwiftUI and SwiftData.
+**[Download Lore for Apple Silicon →](https://github.com/wassimkanze/Lore/releases/latest)**
+
+Unzip the download, drag **Lore.app** into **Applications**, and open it. No Xcode or developer account is needed. The app is Developer ID–signed and notarized by Apple.
+
+Choose your development folders to add Git history. To keep working with the lid closed, enable system access from the Pulse page; macOS handles the approval.
+
+Prefer to compile it yourself? See [Build Lore from source](CONTRIBUTING.md#build-lore).
 
 ## Support Lore
 
