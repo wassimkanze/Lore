@@ -36,6 +36,10 @@ Requires an Apple Silicon Mac running macOS 15 or newer.
 
 Before uninstalling, stop Pulse and remove its system access from the Pulse page.
 
+Lore lives in the menu bar and beside the notch, without a Dock icon.
+Closing its window keeps Lore running. Use Open Lore in the menu bar to reopen it,
+or More > Quit Lore to quit completely.
+
 Lore is free and MIT licensed. No account is needed to use it.
 Source and support: https://github.com/wassimkanze/Lore
 INSTRUCTIONS

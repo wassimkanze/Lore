@@ -3,6 +3,7 @@ import SwiftData
 import OSLog
 
 @main struct LoreApp: App {
+    @NSApplicationDelegateAdaptor(LoreApplicationDelegate.self) private var appDelegate
     private let container: ModelContainer?
     private let isTestHost: Bool
     @State private var state: AppState?
@@ -63,4 +64,9 @@ import OSLog
             if let state, state.preferences.showPulseTime, state.pulse.isActive { Text(state.pulse.remaining).monospacedDigit() }
         }.menuBarExtraStyle(.window)
     }
+}
+
+/// Closing a history window must not stop agent monitoring or an active Pulse session.
+@MainActor final class LoreApplicationDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 }
