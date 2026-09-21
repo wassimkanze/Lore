@@ -62,6 +62,14 @@ struct LoreMenuView: View {
                         Button("Sources & Access…") { open(.sources) }
                         Button("Diagnostics…") { open(.diagnostics) }
                     }
+                    Section("Lore") {
+                        Button(state.updates.isChecking ? "Checking for Updates…" : "Check for Updates…") {
+                            Task { await state.updates.check() }
+                        }.disabled(state.updates.isChecking)
+                        if state.updates.availableURL != nil {
+                            Button("Open Latest Release…") { state.updates.openAvailableRelease() }
+                        }
+                    }
                     Divider()
                     Button("Support Lore…") { open(.support) }
                     Button("Quit Lore") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q")

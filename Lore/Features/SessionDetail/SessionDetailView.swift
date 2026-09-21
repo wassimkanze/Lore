@@ -33,7 +33,7 @@ struct SessionDetailView: View {
                     ForEach(sessions.sorted { $0.startedAt < $1.startedAt }) { session in
                         VStack(alignment: .leading, spacing: 6) {
                             Text(session.provider + " · " + (session.model ?? "Model unavailable")).font(.callout.weight(.medium))
-                            Button(SessionNavigation.codexURL(provider: session.provider, sourceID: session.sourceID) == nil ? "Open app ↗" : "Open this chat in Codex ↗") {
+                            Button(SessionNavigation.url(provider: session.provider, sourceID: session.sourceID) == nil ? "Open app ↗" : "Open this session in \(session.provider) ↗") {
                                 AgentApplicationIcons.openSession(provider: session.provider, sourceID: session.sourceID)
                             }.buttonStyle(.plain).foregroundStyle(LorePalette.accent)
                             Text("Started \(session.startedAt.formatted(date: .abbreviated, time: .shortened))").font(.caption).foregroundStyle(.secondary)

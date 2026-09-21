@@ -24,6 +24,8 @@ See which agents and models you used, available token counts, and the files and 
 
 A single animated star shows live agent activity. Hover for a quick glance, click for details, and see when recorded signals indicate work, a question or completion. Pin the panel when you want to keep it open.
 
+Lore can start quietly when you sign in to your Mac. It stays in the menu bar and beside the notch without occupying the Dock.
+
 ### Keep long tasks running with Pulse
 
 Pulse keeps your Mac awake while your agents work — with the lid open or closed, on battery or charger. Choose a duration, save a preset, and control it from the app, menu bar or heartbeat beside the notch.
@@ -38,6 +40,7 @@ Choose light, dark or system appearance, pick an accent color, adjust activity d
 
 - No account required to use Lore.
 - No analytics, telemetry, cloud sync or AI API calls.
+- Update checks happen only when you request one and contact GitHub without sending activity data.
 - Your projects and agent files are read-only.
 - Prompts, responses and source code are not saved in Lore's database.
 - You choose which development folders Lore can read.
@@ -48,8 +51,8 @@ Lore stores activity metadata locally. Token counts and activity duration are ob
 
 | Tool | Local history |
 | --- | --- |
-| Codex | Sessions, models, available token usage and direct chat links |
-| Claude Code | Sessions, models and available token usage |
+| Codex | Sessions, models, available token usage and direct session links |
+| Claude Code | Sessions, models, available token usage and direct session links when supported by Claude Desktop |
 | Gemini CLI | Sessions from supported local history files |
 | Git | Commits, authors, messages and change statistics |
 
@@ -63,7 +66,7 @@ Lore runs on **Apple Silicon Macs with macOS 15 or newer**.
 
 Unzip the download, drag **Lore.app** into **Applications**, and open it. No Xcode or developer account is needed. The app is Developer ID–signed and notarized by Apple.
 
-Lore lives in your menu bar and beside the notch, without a Dock icon. Close its window to keep it running; use **Open Lore** in the menu bar to return to your history. To stop Lore completely, choose **More → Quit Lore** in its menu bar panel.
+Lore lives in your menu bar and beside the notch, without a Dock icon. Close its window to keep it running; use **Open Lore** in the menu bar to return to your history. To stop Lore completely, choose **More → Quit Lore** in its menu bar panel. You can also enable **Open Lore at login** from Appearance.
 
 Choose your development folders to add Git history. To keep working with the lid closed, enable system access from the Pulse page; macOS handles the approval.
 

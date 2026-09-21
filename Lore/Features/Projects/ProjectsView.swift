@@ -78,7 +78,7 @@ struct ProjectsView: View {
                         HStack(alignment: .top) {
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(session.provider).font(.callout.weight(.medium))
-                                Button(SessionNavigation.codexURL(provider: session.provider, sourceID: session.sourceID) == nil ? "Open app ↗" : "Open chat ↗") {
+                                Button(SessionNavigation.url(provider: session.provider, sourceID: session.sourceID) == nil ? "Open app ↗" : "Open session ↗") {
                                     AgentApplicationIcons.openSession(provider: session.provider, sourceID: session.sourceID)
                                 }.buttonStyle(.plain).font(.caption).foregroundStyle(LorePalette.accent)
                                 Text(session.model ?? "Model unavailable").font(.caption.monospaced()).foregroundStyle(.secondary)

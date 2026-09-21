@@ -10,10 +10,21 @@ final class NavigationAndActivityTests: XCTestCase {
     func testConversationRouteUsesSourceUUIDAndRejectsCommandsOrInjectedURLs() {
         let id = "12345678-1234-1234-1234-123456789abc"
         XCTAssertEqual(SessionNavigation.codexURL(provider: "Codex", sourceID: id)?.absoluteString, "codex://threads/" + id)
+        XCTAssertEqual(SessionNavigation.url(provider: "Claude Code", sourceID: id)?.absoluteString,
+                       "claude://resume?session=" + id)
         for value in ["new", "../settings", "https://example.com", "abc?prompt=hello", StableID.session(provider: "Codex", sourceID: id)] {
             XCTAssertNil(SessionNavigation.codexURL(provider: "Codex", sourceID: value))
+            XCTAssertNil(SessionNavigation.claudeURL(provider: "Claude Code", sourceID: value))
         }
         XCTAssertNil(SessionNavigation.codexURL(provider: "Claude Code", sourceID: id))
+        XCTAssertNil(SessionNavigation.url(provider: "Gemini CLI", sourceID: id))
+    }
+    func testSemanticVersionsCompareWithoutLexicographicMistakes() throws {
+        XCTAssertLessThan(try XCTUnwrap(AppVersion("0.1.9")), try XCTUnwrap(AppVersion("v0.1.10")))
+        XCTAssertEqual(AppVersion("1.2"), AppVersion("1.2.0"))
+        XCTAssertLessThan(try XCTUnwrap(AppVersion("1.9.0")), try XCTUnwrap(AppVersion("2.0.0")))
+        XCTAssertNil(AppVersion("latest"))
+        XCTAssertNil(AppVersion("1.-1.0"))
     }
     func testFinishedTasksDoNotCountTheGapBeforeTheNextTask() {
         func event(_ second: Double, _ boundary: ObservedActivity.Boundary) -> ObservedActivity.Event { .init(date: Date(timeIntervalSince1970: second), boundary: boundary) }

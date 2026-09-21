@@ -22,7 +22,7 @@ import AppKit
         return image
     }
     static func openSession(provider: String, sourceID: String?) {
-        if let link = SessionNavigation.codexURL(provider: provider, sourceID: sourceID),
+        if let link = SessionNavigation.url(provider: provider, sourceID: sourceID),
            let app = applicationURL(for: provider) {
             NSWorkspace.shared.open([link], withApplicationAt: app, configuration: NSWorkspace.OpenConfiguration())
         } else { open(provider) }

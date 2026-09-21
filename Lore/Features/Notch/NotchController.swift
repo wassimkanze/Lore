@@ -296,19 +296,26 @@ private final class ActivityPanel: NSPanel {
     }
     private func show<V: View>(_ panel: ActivityPanel, frame: CGRect, view: V, regions: [NotchHoverRegion], tracksPanel: Bool = false) {
         let host: NotchHostingView<V>
-        if let existing = panel.contentView as? NotchHostingView<V> { host = existing }
+        let updatesExistingHost: Bool
+        if let existing = panel.contentView as? NotchHostingView<V> {
+            host = existing
+            updatesExistingHost = true
+        }
         else {
             host = NotchHostingView(rootView: view); host.sizingOptions = []; host.wantsLayer = true
             host.layer?.backgroundColor = NSColor.clear.cgColor; host.layer?.borderWidth = 0
             panel.contentView = host
+            updatesExistingHost = false
         }
         host.onRegionHover = { [weak self] id in self?.hover(id) }
         host.onPanelHover = tracksPanel ? { [weak self] inside in self?.panelHover(inside) } : nil
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0; context.allowsImplicitAnimation = false
             panel.setFrame(frame, display: false)
-            host.rootView = view
-            host.layoutSubtreeIfNeeded()
+            if updatesExistingHost {
+                host.rootView = view
+                host.needsLayout = true
+            }
         }
         host.configure(regions: regions, tracksPanel: tracksPanel)
         panel.orderFrontRegardless()

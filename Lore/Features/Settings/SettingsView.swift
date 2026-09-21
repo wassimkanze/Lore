@@ -36,7 +36,10 @@ struct SettingsView: View {
                 }.padding(12)
             }
         }.preferredColorScheme(state.preferences.theme.scheme).tint(LorePalette.accent)
-            .task { await state.closedLid.refresh() }
+            .task {
+                await state.closedLid.refresh()
+                state.loginItem.refresh()
+            }
     }
     @ViewBuilder private var appearance: some View {
         @Bindable var preferences = state.preferences
@@ -61,6 +64,21 @@ struct SettingsView: View {
             Toggle("Brief attention and completion updates", isOn: Binding(get: { state.notch.announcementsEnabled }, set: { state.notch.setAnnouncementsEnabled($0) }))
             Toggle("More relaxed hover timing", isOn: $preferences.relaxedHover)
             Text("Hover for a glance, click for details. Pin only when you want it to stay open. Hiding the notch does not stop Pulse.").font(.caption).foregroundStyle(.secondary)
+        }
+        Section("Startup") {
+            Toggle("Open Lore at login", isOn: Binding(
+                get: { state.loginItem.isEnabled },
+                set: { state.loginItem.setEnabled($0) }
+            )).disabled(state.loginItem.isBusy)
+            LabeledContent("Login Item", value: state.loginItem.statusLabel)
+            if state.loginItem.requiresApproval {
+                Button("Open Login Items Settings…") { state.loginItem.openSystemSettings() }
+            }
+            if let error = state.loginItem.errorMessage {
+                Text(error).font(.caption).foregroundStyle(.orange)
+            }
+            Text("Lore starts quietly in the menu bar and beside the notch. Its history window stays closed until you open it.")
+                .font(.caption).foregroundStyle(.secondary)
         }
         Section("Pulse defaults") {
             Picker("Mode", selection: $preferences.pulseMode) { ForEach(PulseMode.allCases) { Text($0.rawValue).tag($0) } }
@@ -92,6 +110,20 @@ struct SettingsView: View {
         }
     }
     @ViewBuilder private var general: some View {
+        Section("Lore") {
+            LabeledContent("Installed version", value: state.updates.currentVersion)
+            LabeledContent("Updates", value: state.updates.statusLabel)
+            HStack {
+                Button(state.updates.isChecking ? "Checking…" : "Check for Updates…") {
+                    Task { await state.updates.check() }
+                }.disabled(state.updates.isChecking)
+                if state.updates.availableURL != nil {
+                    Button("Open Latest Release…") { state.updates.openAvailableRelease() }
+                }
+            }
+            Text("Lore contacts GitHub only when you press Check for Updates. It does not send your activity data.")
+                .font(.caption).foregroundStyle(.secondary)
+        }
         Section("Local index") {
             LabeledContent("Sessions indexed", value: sessions.count.formatted())
             LabeledContent("Database", value: "Stored on this Mac")
@@ -165,7 +197,7 @@ struct SettingsView: View {
     @ViewBuilder private var privacy: some View {
         Section {
             Label("Your development data stays on this Mac.", systemImage: "lock.shield").font(.headline)
-            Text("No account, backend, analytics, telemetry or cloud sync. Lore reads your local history and stores activity metadata in its own database.").foregroundStyle(.secondary)
+            Text("No account, backend, analytics, telemetry or cloud sync. Lore reads your local history and stores activity metadata in its own database. A manual update check contacts GitHub without sending activity data.").foregroundStyle(.secondary)
         }
         Section("What Lore saves") {
             Label("Project paths and activity timestamps", systemImage: "folder")

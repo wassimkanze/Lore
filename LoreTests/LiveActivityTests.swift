@@ -64,6 +64,8 @@ final class LiveParserTests: XCTestCase {
         XCTAssertEqual(LiveEventParser.parse(result, provider: "Codex")?.signals, [.resolved("one"), .progress])
         let done = Data(#"{"timestamp":"2026-09-10T10:02:00Z","type":"event_msg","payload":{"type":"task_complete","turn_id":"turn","last_agent_message":"PRIVATE_SENTINEL"}}"#.utf8)
         XCTAssertEqual(LiveEventParser.parse(done, provider: "Codex")?.signals, [.completed])
+        let async = Data(#"{"timestamp":"2026-09-10T10:03:00Z","type":"response_item","payload":{"type":"function_call","name":"functions.request_user_input_async","call_id":"later","arguments":"PRIVATE_SENTINEL"}}"#.utf8)
+        XCTAssertEqual(LiveEventParser.parse(async, provider: "Codex")?.signals, [.progress, .waiting("async:later")])
     }
     func testClaudeQuestionResultsAndExplicitEndTurn() {
         let question = Data(#"{"type":"assistant","timestamp":"2026-09-10T10:00:00Z","sessionId":"one","message":{"model":"claude-test","stop_reason":"tool_use","content":[{"type":"text","text":"PRIVATE_SENTINEL"},{"type":"tool_use","id":"ask","name":"AskUserQuestion","input":{"questions":"PRIVATE_SENTINEL"}}]}}"#.utf8)

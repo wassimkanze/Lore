@@ -71,7 +71,7 @@ project_configs=configs('project',{})
 app_configs=configs('app',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac','PRODUCT_NAME':'$(TARGET_NAME)','GENERATE_INFOPLIST_FILE':'YES',
                           'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon','INFOPLIST_KEY_CFBundleDisplayName':'Lore','INFOPLIST_KEY_LSApplicationCategoryType':'public.app-category.developer-tools',
                           'INFOPLIST_KEY_LSUIElement':'YES',
-                          'MARKETING_VERSION':'0.1.1','CURRENT_PROJECT_VERSION':'2','SKIP_INSTALL':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
+                          'MARKETING_VERSION':'0.1.2','CURRENT_PROJECT_VERSION':'3','SKIP_INSTALL':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
                           'ENABLE_APP_SANDBOX':'NO','ENABLE_HARDENED_RUNTIME':'YES','LD_RUNPATH_SEARCH_PATHS':'$(inherited) @executable_path/../Frameworks'})
 test_configs=configs('test',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac.tests','PRODUCT_NAME':'$(TARGET_NAME)',
                             'GENERATE_INFOPLIST_FILE':'YES','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',

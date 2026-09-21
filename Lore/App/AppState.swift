@@ -6,6 +6,8 @@ import Observation
     let folders = FolderAccessController()
     let closedLid = ClosedLidController()
     let lidValidation = ClosedLidValidation()
+    let loginItem = LoginItemController()
+    let updates = AppUpdateController()
     let notch: NotchController
     let pulse: PulseController
     let preferences = LorePreferences.shared

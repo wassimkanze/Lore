@@ -32,8 +32,15 @@ import OSLog
             }
         }
         .defaultSize(width: 1200, height: 840)
+        .defaultLaunchBehavior(.suppressed)
         .commands {
             CommandGroup(replacing: .help) {
+                Button("Check for Updates…") { Task { await state?.updates.check() } }
+                    .disabled(state?.updates.isChecking != false)
+                if state?.updates.availableURL != nil {
+                    Button("Open Latest Release…") { state?.updates.openAvailableRelease() }
+                }
+                Divider()
                 Button("Support Lore…") { state?.openSupportPage?() }
                     .disabled(state == nil)
             }
