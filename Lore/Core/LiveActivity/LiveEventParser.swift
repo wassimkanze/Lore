@@ -7,6 +7,7 @@ public enum LiveEventParser {
         case "Codex": return (try? JSONDecoder().decode(CodexEvent.self, from: data))?.event
         case "Claude Code": return (try? JSONDecoder().decode(ClaudeEvent.self, from: data))?.event
         case "Gemini CLI": return (try? JSONDecoder().decode(GeminiEvent.self, from: data))?.event
+        case "Pi": return (try? JSONDecoder().decode(PiEvent.self, from: data))?.event
         default: return nil
         }
     }
@@ -94,6 +95,43 @@ public enum LiveEventParser {
                     if let id = part.id { event.signals.append(.waiting(id)); event.attentionReason = part.name == "ExitPlanMode" ? .planApproval : .question }
                 }
                 if message.optionalString(.stop_reason) == "end_turn" { event.signals.append(.completed) }
+            }
+        }
+    }
+    private struct PiEvent: Decodable {
+        var event = LiveEvent()
+        enum Keys: String, CodingKey { case type, id, cwd, timestamp, message }
+        enum Message: String, CodingKey { case role, model, stopReason, toolCallId, content }
+        private struct Tool: Decodable {
+            let type: String?
+            let id: String?
+            let name: String?
+        }
+        init(from decoder: any Decoder) throws {
+            let root = try decoder.container(keyedBy: Keys.self)
+            let type = root.optionalString(.type)
+            event.timestamp = MetadataDate.parse(root.optionalString(.timestamp))
+            if type == "session" { event.sourceID = root.optionalString(.id); event.cwd = root.optionalString(.cwd); return }
+            guard type == "message", let message = try? root.nestedContainer(keyedBy: Message.self, forKey: .message) else { return }
+            event.model = message.optionalString(.model)
+            switch message.optionalString(.role) {
+            case "user": event.signals = [.started]
+            case "toolResult":
+                if let id = message.optionalString(.toolCallId) { event.signals = [.resolved(id), .progress] }
+                else { event.signals = [.progress] }
+            case "assistant":
+                event.signals = [.progress]
+                for tool in (try? message.decode([Tool].self, forKey: .content)) ?? [] where tool.type == "toolCall" {
+                    if let id = tool.id, ["request_user_input", "AskUserQuestion"].contains(tool.name ?? "") {
+                        event.signals.append(.waiting(id)); event.attentionReason = .question
+                    }
+                }
+                switch message.optionalString(.stopReason) {
+                case "stop": event.signals.append(.completed)
+                case "error", "aborted": event.signals.append(.stopped)
+                default: break // toolUse and deferred responses can continue.
+                }
+            default: break
             }
         }
     }

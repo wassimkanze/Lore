@@ -8,7 +8,7 @@ public struct LiveProviderGroup: Identifiable, Sendable, Equatable {
     public var phase: LivePhase { LiveActivitySummary(sessions).phase ?? .uncertain }
     public var activeCount: Int { sessions.filter { $0.phase != .completed && $0.phase != .stopped }.count }
     public static func make(_ sessions: [LiveSession]) -> [Self] {
-        let order = ["Codex", "Claude Code", "Gemini CLI"]
+        let order = ["Codex", "Claude Code", "Gemini CLI", "Pi"]
         return Dictionary(grouping: sessions, by: \.provider).map { provider, sessions in
             Self(provider: provider, sessions: sessions.sorted {
                 if $0.phase == .needsInput && $1.phase != .needsInput { return true }

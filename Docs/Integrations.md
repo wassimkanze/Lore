@@ -44,6 +44,12 @@ New tests cover Claude usage deduplication and cache normalization, Gemini JSON/
 
 
 
+## Pi terminal integration
+
+Lore discovers only `~/.pi/agent/sessions/<project>/*.jsonl` (or the selected Pi data folder). It uses the session header's ID, timestamp and absolute cwd, message role/model/timestamps, and usage counters from messages and standalone usage/compaction/branch-summary entries. Uncached input, cache reads and cache writes make up input; cached input counts reads only. Prompts, responses, tool arguments, summaries, credentials and extension data are not stored. Activity durations use observed record timestamps; branching and context compaction mean totals describe recorded history, not necessarily the active branch or billing.
+
+Live monitoring observes user starts, assistant progress and explicit stop/error/abort outcomes, plus tool-result resolutions. Only recognized question tool calls provide an attention signal; other interactive extension prompts cannot be detected. Lore does not offer a direct Pi terminal resume link. Enable Pi under **Settings → AI sources**; if the history folder is inaccessible, choose the `~/.pi` folder there.
+
 ## Grouped live island and keep awake
 
 One animated Lore star to the right of the notch now represents all AI providers. It stays dim and still at rest; a wave travels through its branches while tasks work, becoming more pronounced with concurrent work. The badge counts active sessions across providers. Attention takes priority; the star transitions to a success mark only when all observed sessions are complete. Interrupted or uncertain tasks never become a false success mark.

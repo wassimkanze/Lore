@@ -4,7 +4,7 @@ set -euo pipefail
 LORE_PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LORE_BUILD_CONFIG="${1:-Release}"
 LORE_INSTALL_ROOT="$HOME/Applications"
-LORE_APP_SOURCE="$LORE_PROJECT_ROOT/build/Build/Products/$LORE_BUILD_CONFIG/Lore.app"
+LORE_APP_SOURCE="${LORE_APP_SOURCE:-$LORE_PROJECT_ROOT/build/Build/Products/$LORE_BUILD_CONFIG/Lore.app}"
 LORE_APP_DESTINATION="$LORE_INSTALL_ROOT/Lore.app"
 if [[ ! -d "$LORE_APP_SOURCE" ]]; then
   echo "Build Lore in $LORE_BUILD_CONFIG first." >&2

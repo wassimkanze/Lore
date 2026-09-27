@@ -12,7 +12,12 @@ import Observation
     private static let grantsKey = "folderGrants.v1"
     private static let providersKey = "enabledProviders.v1"
     init() {
-        enabledProviders = Set(UserDefaults.standard.stringArray(forKey: Self.providersKey) ?? ["Codex", "Claude Code", "Gemini CLI"])
+        enabledProviders = Set(UserDefaults.standard.stringArray(forKey: Self.providersKey) ?? ["Codex", "Claude Code", "Gemini CLI", "Pi"])
+        if !UserDefaults.standard.bool(forKey: "piSourceMigrated.v1") {
+            enabledProviders.insert("Pi")
+            UserDefaults.standard.set(enabledProviders.sorted(), forKey: Self.providersKey)
+            UserDefaults.standard.set(true, forKey: "piSourceMigrated.v1")
+        }
         if let data = UserDefaults.standard.data(forKey: Self.grantsKey) {
             do { grants = try JSONDecoder().decode([FolderGrant].self, from: data) }
             catch { errorMessage = "Saved folder access could not be restored. Choose your development folders again." }
@@ -52,6 +57,7 @@ import Observation
         if let url = directory("Codex", fallback: ".codex") { sources.append(CodexIntegration(directory: url)) }
         if let url = directory("Claude Code", fallback: ".claude") { sources.append(ClaudeCodeIntegration(directory: url)) }
         if let url = directory("Gemini CLI", fallback: ".gemini") { sources.append(GeminiCLIIntegration(directory: url)) }
+        if let url = directory("Pi", fallback: ".pi") { sources.append(PiIntegration(directory: url)) }
         return sources
     }
     func setProvider(_ provider: String, enabled: Bool) {

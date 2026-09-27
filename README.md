@@ -54,6 +54,7 @@ Lore stores activity metadata locally. Token counts and activity duration are ob
 | Codex | Sessions, models, available token usage and direct session links |
 | Claude Code | Sessions, models, available token usage and direct session links when supported by Claude Desktop |
 | Gemini CLI | Sessions from supported local history files |
+| Pi (terminal) | Sessions, models, token usage and live task status from local JSONL history |
 | Git | Commits, authors, messages and change statistics |
 
 Live status depends on what each tool records. See the [integration notes](Docs/Integrations.md) for format coverage and limitations.

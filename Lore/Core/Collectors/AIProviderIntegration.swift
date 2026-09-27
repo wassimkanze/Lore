@@ -21,6 +21,6 @@ extension AIProviderIntegration {
 
 public enum ProviderIntegrations {
     public static func defaults() -> [any AIProviderIntegration] {
-        [CodexIntegration(), ClaudeCodeIntegration(), GeminiCLIIntegration()]
+        [CodexIntegration(), ClaudeCodeIntegration(), GeminiCLIIntegration(), PiIntegration()]
     }
 }
