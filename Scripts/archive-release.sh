@@ -13,6 +13,7 @@ if ! /usr/bin/security find-identity -v -p codesigning | /usr/bin/grep -F "$LORE
   echo "The selected Developer ID Application identity must be available in the keychain." >&2
   exit 1
 fi
+"$LORE_ROOT/Scripts/bootstrap-sparkle.sh"
 mkdir -p "$LORE_ROOT/build/distribution"
 LORE_RUN="$(/usr/bin/mktemp -d "$LORE_ROOT/build/distribution/release.XXXXXX")"
 /usr/bin/xcodebuild -project "$LORE_ROOT/Lore.xcodeproj" -scheme Lore -configuration Release \

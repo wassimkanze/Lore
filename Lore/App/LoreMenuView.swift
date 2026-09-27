@@ -63,12 +63,8 @@ struct LoreMenuView: View {
                         Button("Diagnostics…") { open(.diagnostics) }
                     }
                     Section("Lore") {
-                        Button(state.updates.isChecking ? "Checking for Updates…" : "Check for Updates…") {
-                            Task { await state.updates.check() }
-                        }.disabled(state.updates.isChecking)
-                        if state.updates.availableURL != nil {
-                            Button("Open Latest Release…") { state.updates.openAvailableRelease() }
-                        }
+                        Button("Check for Updates…") { state.updates.check() }
+                            .disabled(!state.updates.canCheck)
                     }
                     Divider()
                     Button("Support Lore…") { open(.support) }

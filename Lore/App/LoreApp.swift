@@ -35,11 +35,8 @@ import OSLog
         .defaultLaunchBehavior(.suppressed)
         .commands {
             CommandGroup(replacing: .help) {
-                Button("Check for Updates…") { Task { await state?.updates.check() } }
-                    .disabled(state?.updates.isChecking != false)
-                if state?.updates.availableURL != nil {
-                    Button("Open Latest Release…") { state?.updates.openAvailableRelease() }
-                }
+                Button("Check for Updates…") { state?.updates.check() }
+                    .disabled(state?.updates.canCheck != true)
                 Divider()
                 Button("Support Lore…") { state?.openSupportPage?() }
                     .disabled(state == nil)

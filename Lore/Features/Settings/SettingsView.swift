@@ -114,14 +114,10 @@ struct SettingsView: View {
             LabeledContent("Installed version", value: state.updates.currentVersion)
             LabeledContent("Updates", value: state.updates.statusLabel)
             HStack {
-                Button(state.updates.isChecking ? "Checking…" : "Check for Updates…") {
-                    Task { await state.updates.check() }
-                }.disabled(state.updates.isChecking)
-                if state.updates.availableURL != nil {
-                    Button("Open Latest Release…") { state.updates.openAvailableRelease() }
-                }
+                Button("Check for Updates…") { state.updates.check() }
+                    .disabled(!state.updates.canCheck)
             }
-            Text("Lore contacts GitHub only when you press Check for Updates. It does not send your activity data.")
+            Text("Lore checks the signed update feed automatically. An update replaces the app in place after confirmation; no development activity is sent.")
                 .font(.caption).foregroundStyle(.secondary)
         }
         Section("Local index") {
@@ -197,7 +193,7 @@ struct SettingsView: View {
     @ViewBuilder private var privacy: some View {
         Section {
             Label("Your development data stays on this Mac.", systemImage: "lock.shield").font(.headline)
-            Text("No account, backend, analytics, telemetry or cloud sync. Lore reads your local history and stores activity metadata in its own database. A manual update check contacts GitHub without sending activity data.").foregroundStyle(.secondary)
+            Text("No account, backend, analytics, telemetry or cloud sync. Lore reads your local history and stores activity metadata in its own database. Update checks contact GitHub without sending development activity.").foregroundStyle(.secondary)
         }
         Section("What Lore saves") {
             Label("Project paths and activity timestamps", systemImage: "folder")

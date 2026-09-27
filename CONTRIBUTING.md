@@ -14,7 +14,7 @@ cd Lore
 xcodebuild -project Lore.xcodeproj -scheme Lore -configuration Debug -derivedDataPath build build
 ```
 
-Or open `Lore.xcodeproj` and run the Lore scheme on My Mac. There are no third-party package dependencies.
+Or open `Lore.xcodeproj` and run the Lore scheme on My Mac. First run `Scripts/bootstrap-sparkle.sh`: it downloads the SHA-256-pinned official Sparkle 2.10.0 framework to ignored `build/deps/`. Release archives bootstrap it automatically. No updater private key belongs in this repository.
 
 The default build uses ad-hoc signing. You can explore the app and its metadata features without the maintainer's signing identity. Pulse's privileged lid-closed service requires an appropriately signed Release build and macOS approval; ad-hoc builds cannot enable that service.
 

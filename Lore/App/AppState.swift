@@ -7,7 +7,7 @@ import Observation
     let closedLid = ClosedLidController()
     let lidValidation = ClosedLidValidation()
     let loginItem = LoginItemController()
-    let updates = AppUpdateController()
+    let updates: SparkleUpdateService
     let notch: NotchController
     let pulse: PulseController
     let preferences = LorePreferences.shared
@@ -24,6 +24,7 @@ import Observation
     @ObservationIgnored private var activeIndex: Task<IndexingReport, any Error>?
     @ObservationIgnored private var started = false
     init(container: ModelContainer) {
+        updates = SparkleUpdateService(power: closedLid)
         worker = IndexingWorker(container: container, cacheURL: SessionIndexCache.defaultURL)
         notch = NotchController(closedLid: closedLid)
         pulse = PulseController(notch: notch)
@@ -35,6 +36,7 @@ import Observation
         await notch.configureSources(folders.integrations)
         notch.start()
         await closedLid.refresh()
+        updates.start()
         await refresh()
     }
     func accessChanged() async {

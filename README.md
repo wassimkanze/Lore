@@ -40,7 +40,7 @@ Choose light, dark or system appearance, pick an accent color, adjust activity d
 
 - No account required to use Lore.
 - No analytics, telemetry, cloud sync or AI API calls.
-- Update checks happen only when you request one and contact GitHub without sending activity data.
+- Signed updates are checked automatically from GitHub; no development activity is sent.
 - Your projects and agent files are read-only.
 - Prompts, responses and source code are not saved in Lore's database.
 - You choose which development folders Lore can read.

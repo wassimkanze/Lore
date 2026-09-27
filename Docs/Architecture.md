@@ -30,7 +30,7 @@ Stable identifiers use SHA-256 with length-framed inputs: canonical path for pro
 - Stored data includes paths, dates, provider/model, optional token counters, project relationships, Git author and commit messages/statistics, and timestamp intervals. Commit messages can themselves contain personal information and remain local.
 - Git remote credentials, URL queries, and fragments are stripped before persistence.
 - Git commands use `/usr/bin/git` directly, never a shell. No optional locks, fsmonitor hooks, external diffs, text conversion, network commands, or repository writes. Git subprocesses have a 30-second termination watchdog.
-- No analytics, telemetry, accounts, sync, or LLM calls. The only network request is an explicit update check against Lore's public GitHub release endpoint; it never includes activity data. No simulated activity appears in the live app.
+- No analytics, telemetry, accounts, sync, or LLM calls. Signed-update checks contact Lore's public GitHub-hosted feed automatically; they never include development activity. No simulated activity appears in the live app.
 
 The app is not sandboxed. **Settings → Sources & Access** provides explicit development-folder selection and read-only security-scoped bookmarks. Git enrichment is blocked before filesystem canonicalization or subprocess execution unless a project lies inside a chosen root; existing indexed history remains visible. Agent source folders can be selected separately and each provider can be paused. Bookmarks resolve without displaying UI and stale grants show a renewal action.
 
@@ -38,7 +38,7 @@ macOS permission identity is kept stable by signing updates with the same identi
 
 Lore can register its main application as a Login Item through `SMAppService.mainApp`. Registration is controlled by the user from Appearance, and macOS reports when approval is still required. The primary window has a suppressed default launch behavior, so automatic startup brings back the menu bar and notch without opening a history window.
 
-Official builds are Developer ID signed, notarized and distributed through GitHub Releases. The in-app update check is manual: it reads only the public latest-release document, validates the repository release URL, and opens the release page when a newer semantic version exists. Lore does not download or replace itself in the background, which also keeps Pulse helper updates explicit.
+Official builds are Developer ID signed, notarized and distributed through GitHub Releases. Starting in 0.1.4, Sparkle verifies an Ed25519-signed appcast/enclosure, checks automatically and offers an in-place update/relaunch after confirmation. The previous releases used a manual GitHub link. Active closed-lid leases block starting an update; macOS may request service reapproval if the privileged helper changes.
 
 
 ## Diagnostics and validation

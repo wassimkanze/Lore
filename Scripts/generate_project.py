@@ -24,6 +24,8 @@ app_sources=sorted((root/'Lore').rglob('*.swift'))
 test_sources=sorted((root/'LoreTests').glob('*.swift'))
 signing_ref=put('signingConfig','{isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Signing.xcconfig; sourceTree = SOURCE_ROOT;}')
 file_refs=[signing_ref]
+app_plist=put('appInfoPlist','{isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config/LoreInfo.plist; sourceTree = SOURCE_ROOT;}')
+file_refs.append(app_plist)
 def sources(files, scope):
     builds=[]
     for path in files:
@@ -45,6 +47,13 @@ fixture=put('fixtures','{isa = PBXFileReference; lastKnownFileType = folder; pat
 file_refs.append(fixture)
 fixture_build=put('fixturesBuild','{isa = PBXBuildFile; fileRef = '+fixture+';}')
 test_resources=put('testResources','{isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = '+seq([fixture_build])+'; runOnlyForDeploymentPostprocessing = 0;}')
+sparkle_ref=put('sparkleFramework','{isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = build/deps/Sparkle.framework; sourceTree = SOURCE_ROOT;}')
+sparkle_link=put('sparkleLink','{isa = PBXBuildFile; fileRef = '+sparkle_ref+';}')
+sparkle_embed=put('sparkleEmbed','{isa = PBXBuildFile; fileRef = '+sparkle_ref+'; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy,);};}')
+app_frameworks=put('appFrameworks','{isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = '+seq([sparkle_link])+'; runOnlyForDeploymentPostprocessing = 0;}')
+test_frameworks=put('testFrameworks','{isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;}')
+embed_sparkle=put('embedSparkle','{isa = PBXCopyFilesBuildPhase; buildActionMask = 2147483647; dstPath = ""; dstSubfolderSpec = 10; files = '+seq([sparkle_embed])+'; name = "Embed Sparkle"; runOnlyForDeploymentPostprocessing = 0;}')
+file_refs.append(sparkle_ref)
 app_product=put('appProduct','{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lore.app; sourceTree = BUILT_PRODUCTS_DIR;}')
 test_product=put('testProduct','{isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR;}')
 helper_product=put('helperProduct','{isa = PBXFileReference; explicitFileType = compiled.mach-o.executable; includeInIndex = 0; path = LorePowerHelper; sourceTree = BUILT_PRODUCTS_DIR;}')
@@ -68,22 +77,24 @@ def configs(scope, extras):
         configs.append(put(scope+name,'{isa = XCBuildConfiguration; baseConfigurationReference = '+signing_ref+'; buildSettings = {'+settings+'}; name = '+name+';}'))
     return put(scope+'ConfigList','{isa = XCConfigurationList; buildConfigurations = '+seq(configs)+'; defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;}')
 project_configs=configs('project',{})
-app_configs=configs('app',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac','PRODUCT_NAME':'$(TARGET_NAME)','GENERATE_INFOPLIST_FILE':'YES',
-                          'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon','INFOPLIST_KEY_CFBundleDisplayName':'Lore','INFOPLIST_KEY_LSApplicationCategoryType':'public.app-category.developer-tools',
-                          'INFOPLIST_KEY_LSUIElement':'YES',
-                          'MARKETING_VERSION':'0.1.3','CURRENT_PROJECT_VERSION':'4','SKIP_INSTALL':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
-                          'ENABLE_APP_SANDBOX':'NO','ENABLE_HARDENED_RUNTIME':'YES','LD_RUNPATH_SEARCH_PATHS':'$(inherited) @executable_path/../Frameworks'})
+app_configs=configs('app',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac','PRODUCT_NAME':'$(TARGET_NAME)',
+                          'GENERATE_INFOPLIST_FILE':'NO','INFOPLIST_FILE':'Config/LoreInfo.plist',
+                          'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
+                          'MARKETING_VERSION':'0.1.4','CURRENT_PROJECT_VERSION':'5','SKIP_INSTALL':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
+                          'ENABLE_APP_SANDBOX':'NO','ENABLE_HARDENED_RUNTIME':'YES','FRAMEWORK_SEARCH_PATHS':'$(inherited) $(PROJECT_DIR)/build/deps',
+                          'LD_RUNPATH_SEARCH_PATHS':'$(inherited) @executable_path/../Frameworks'})
 test_configs=configs('test',{'PRODUCT_BUNDLE_IDENTIFIER':'app.lore.mac.tests','PRODUCT_NAME':'$(TARGET_NAME)',
                             'GENERATE_INFOPLIST_FILE':'YES','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Automatic',
-                            'TEST_HOST':'$(BUILT_PRODUCTS_DIR)/Lore.app/Contents/MacOS/Lore','BUNDLE_LOADER':'$(TEST_HOST)'})
+                            'TEST_HOST':'$(BUILT_PRODUCTS_DIR)/Lore.app/Contents/MacOS/Lore','BUNDLE_LOADER':'$(TEST_HOST)',
+                            'FRAMEWORK_SEARCH_PATHS':'$(inherited) $(PROJECT_DIR)/build/deps'})
 helper_configs=configs('helper',{'PRODUCT_NAME':'LorePowerHelper','SKIP_INSTALL':'YES','PRODUCT_BUNDLE_IDENTIFIER':'app.lore.power-helper','INFOPLIST_FILE':'Helper/Info.plist','CREATE_INFOPLIST_SECTION_IN_BINARY':'YES','ENABLE_HARDENED_RUNTIME':'YES','SWIFT_ACTIVE_COMPILATION_CONDITIONS':'','OTHER_SWIFT_FLAGS':'-parse-as-library'})
 helper_target=put('helperTarget','{isa = PBXNativeTarget; buildConfigurationList = '+helper_configs+'; buildPhases = '+seq([helper_phase])+'; buildRules = (); dependencies = (); name = LorePowerHelper; productName = LorePowerHelper; productReference = '+helper_product+'; productType = "com.apple.product-type.tool";}')
 helper_proxy=put('helperProxy','{isa = PBXContainerItemProxy; containerPortal = '+ident('project')+'; proxyType = 1; remoteGlobalIDString = '+helper_target+'; remoteInfo = LorePowerHelper;}')
 helper_dep=put('helperDependency','{isa = PBXTargetDependency; target = '+helper_target+'; targetProxy = '+helper_proxy+';}')
-app_target=put('appTarget','{isa = PBXNativeTarget; buildConfigurationList = '+app_configs+'; buildPhases = '+seq([app_phase,app_resources,embed_helper,embed_plist])+'; buildRules = (); dependencies = '+seq([helper_dep])+'; name = Lore; productName = Lore; productReference = '+app_product+'; productType = "com.apple.product-type.application";}')
+app_target=put('appTarget','{isa = PBXNativeTarget; buildConfigurationList = '+app_configs+'; buildPhases = '+seq([app_phase,app_frameworks,app_resources,embed_sparkle,embed_helper,embed_plist])+'; buildRules = (); dependencies = '+seq([helper_dep])+'; name = Lore; productName = Lore; productReference = '+app_product+'; productType = "com.apple.product-type.application";}')
 proxy=put('proxy','{isa = PBXContainerItemProxy; containerPortal = '+ident('project')+'; proxyType = 1; remoteGlobalIDString = '+app_target+'; remoteInfo = Lore;}')
 dep=put('testDependency','{isa = PBXTargetDependency; target = '+app_target+'; targetProxy = '+proxy+';}')
-test_target=put('testTarget','{isa = PBXNativeTarget; buildConfigurationList = '+test_configs+'; buildPhases = '+seq([test_phase,test_resources])+'; buildRules = (); dependencies = '+seq([dep])+'; name = LoreTests; productName = LoreTests; productReference = '+test_product+'; productType = "com.apple.product-type.bundle.unit-test";}')
+test_target=put('testTarget','{isa = PBXNativeTarget; buildConfigurationList = '+test_configs+'; buildPhases = '+seq([test_phase,test_frameworks,test_resources])+'; buildRules = (); dependencies = '+seq([dep])+'; name = LoreTests; productName = LoreTests; productReference = '+test_product+'; productType = "com.apple.product-type.bundle.unit-test";}')
 project=put('project','{isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastSwiftUpdateCheck = 2600; LastUpgradeCheck = 2600;}; buildConfigurationList = '+project_configs+'; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base); mainGroup = '+main+'; productRefGroup = '+products+'; projectDirPath = ""; projectRoot = ""; targets = '+seq([app_target,test_target,helper_target])+';}')
 (root/'Lore.xcodeproj/project.pbxproj').write_text('// !$*UTF8*$!\n{archiveVersion = 1; classes = {}; objectVersion = 56; objects = {\n'+ '\n'.join(key+' = '+body+';' for key,body in objects.items())+'\n}; rootObject = '+project+';}\n')
 def ref(target,name): return f'<BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="{target}" BuildableName="{name}" BlueprintName="{name.split(".")[0]}" ReferencedContainer="container:Lore.xcodeproj"/>'
