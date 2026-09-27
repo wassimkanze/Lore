@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Lore</title>
+        <item>
+            <title>0.1.4</title>
+            <pubDate>Sun, 27 Sep 2026 15:32:30 +0200</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/wassimkanze/Lore/releases/download/v0.1.4/Lore-0.1.4-arm64.dmg" length="3237920" type="application/octet-stream" sparkle:edSignature="ffO4+j/2A1ep+O/LoWIjEgjZArU1vJh5hMGOezbfYrJD4gbNIiGNz3vJUjAxk4hdzb2sHD5ozWy4kqS1PgmlAw=="></enclosure>
+        </item>
+    </channel>
+</rss><!-- sparkle-signatures:
+edSignature: c/n3UMXMmcy7ud1SWYfDeVwtooJxOhKYV7ULZNvicaS5wJBkdcdw01J8v/S1QYSUneTR2XSBOOOeJ+adr8qtBQ==
+length: 1117
+-->
